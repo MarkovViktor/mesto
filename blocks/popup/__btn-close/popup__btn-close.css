@@ -1,0 +1,18 @@
+.popup__btn-close {
+  position: absolute;
+  top: -40px;
+  right: -40px;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: 00.7s;
+}
+
+.popup__btn-close:hover {
+  transition: 0.1s;
+  opacity: 0.6;
+  cursor: pointer;
+}
