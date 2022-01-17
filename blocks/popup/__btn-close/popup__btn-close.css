@@ -9,10 +9,21 @@
   cursor: pointer;
   padding: 0;
   transition: 00.7s;
+  background-image: url(../../../images/Close\ Icon.png);
 }
 
 .popup__btn-close:hover {
   transition: 0.1s;
   opacity: 0.6;
   cursor: pointer;
+}
+
+@media screen and (max-width: 889px) {
+  .popup__btn-close {
+    width: 20px;
+    height: 20px;
+    background-image: url(../../../images/Close\ Icon\ 20.png);
+    top: -36px;
+    right: 0;
+  }
 }

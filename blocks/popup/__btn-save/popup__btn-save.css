@@ -10,7 +10,7 @@
   color: #FFFFFF;
   background-color: #000000;
   border-radius: 2px;
-  margin: 48px 36px 37px;
+  margin: 36px 36px 37px;
   transition: 0.7s;
 }
 
@@ -18,4 +18,12 @@
   transition: 0.1s;
   background-color: rgba(0, 0, 0, 0.8);
   cursor: pointer;
+}
+
+@media screen and (max-width: 889px) {
+  .popup__btn-save {
+    max-width: 238px;
+    height: 46px;
+    margin: 45px 22px 25px;
+  }
 }
