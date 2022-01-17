@@ -1,11 +1,11 @@
 .place {
-    margin: 0 auto;
-    background-color: white;
-    max-width: 282px;
-    max-height: 361px;
-    border-radius: 10px;
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: 85% 15%;
-    grid-template-areas: 'img img' 'title like';
+  margin: 0 auto;
+  background-color: white;
+  max-width: 282px;
+  max-height: 361px;
+  border-radius: 10px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 85% 15%;
+  grid-template-areas: 'img img' 'title like';
 }
