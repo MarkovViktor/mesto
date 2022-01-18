@@ -1,6 +1,6 @@
-const profileOpenPopupButton = document.querySelector('.profile__edit-button')
-const popup = document.querySelector('.popup')
-const popupCloseButton = document.querySelector('.popup__btn-close')
+let profileOpenPopupButton = document.querySelector('.profile__edit-button')
+let popup = document.querySelector('.popup')
+let popupCloseButton = document.querySelector('.popup__btn-close')
 
 function openPopup() {
   popup.classList.add('popup_opened')
@@ -47,4 +47,4 @@ closePopup()
 
     // Вставьте новые значения с помощью textContent
 
-formElement.addEventListener('submit', formSubmitHandler); 
+formElement.addEventListener('submit', formSubmitHandler);
