@@ -1,6 +1,6 @@
 .place__like {
   grid-area: like;
-  background-image: url(../../../images/Vector.svg);
+  background-image: url(../../../images/hearth.svg);
   background-repeat: no-repeat;
   border: none;
   background-color: white;
@@ -14,6 +14,6 @@
   }
 
 .place__like:active {
-  background-image: url(../../../images/Union.png);
+  background-image: url(../../../images/hearth-black.svg);
   opacity: inherit;
 }  

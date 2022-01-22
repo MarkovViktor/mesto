@@ -2,7 +2,6 @@
   padding: 0;
   max-width: 295px;
   margin: 15px 0 0 0;
-  font-family: Inter;
   font-style: normal;
   font-weight: 500;
   font-size: 42px;
@@ -19,6 +18,7 @@
     justify-self: center;
     font-size: 27px;
     line-height: 33px;
-    margin: 26px 0 0 10px;
+    margin: 26px 10px 0 10px;
+    max-width: 262px;
   }
 }

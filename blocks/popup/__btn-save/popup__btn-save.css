@@ -1,7 +1,6 @@
 .popup__btn-save {
   width: 358px;
   height: 50px;
-  font-family: Inter;
   font-style: normal;
   font-weight: normal;
   font-size: 18px;
@@ -10,7 +9,7 @@
   color: #FFFFFF;
   background-color: #000000;
   border-radius: 2px;
-  margin: 36px 36px 37px;
+  margin: 46px 0 36px;
   transition: 0.7s;
 }
 
@@ -24,6 +23,8 @@
   .popup__btn-save {
     max-width: 238px;
     height: 46px;
-    margin: 45px 22px 25px;
+    margin: 45px 0 25px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }

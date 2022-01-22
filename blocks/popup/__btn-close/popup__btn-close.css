@@ -8,8 +8,8 @@
   border: none;
   cursor: pointer;
   padding: 0;
-  transition: 00.7s;
-  background-image: url(../../../images/Close\ Icon.png);
+  transition: 0.7s;
+  background-image: url(../../../images/Close-Icon32px.svg);
 }
 
 .popup__btn-close:hover {
@@ -22,7 +22,7 @@
   .popup__btn-close {
     width: 20px;
     height: 20px;
-    background-image: url(../../../images/Close\ Icon\ 20.png);
+    background-image: url(../../../images/Close-Icon20px.svg);
     top: -36px;
     right: 0;
   }
