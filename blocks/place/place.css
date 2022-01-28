@@ -7,4 +7,5 @@
   display: grid;
   grid-template-columns: 85% 15%;
   grid-template-areas: 'img img' 'title like';
+  position: relative;
 }
