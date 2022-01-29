@@ -1,13 +1,20 @@
-let profileOpenPopupButton = document.querySelector('.profile__edit-button')
-let popup = document.querySelector('.popup')
-let popupCloseButton = document.querySelector('.popup__btn-close')
-// Находим форму в DOM
+let profileOpenPopupButton = document.querySelector('.profile__edit-button');
+let popupEditProfile = document.querySelector('.popup__edit-profile');
+let popupCloseButton = document.querySelector('.popup__btn-close');
+let popup = document.querySelector('.popup');
 let formElement = document.querySelector('.popup__form');
-// Находим поля формы в DOM
 let nameInput = formElement.querySelector('.popup__input_type_user-name');
 let jobInput = formElement.querySelector('.popup__input_type_user-job');
 let profileName = document.querySelector('.profile__user-name');
 let profileJob = document.querySelector('.profile__user-job');
+//находим элементы второго попапа place
+let profileOpenPopupAddButton = document.querySelector('.profile__add-button');
+let popupAddPicture = document.querySelector('.popup__add-picture');
+let popupCloseButtonAddPicture = document.querySelector('.popup__btn-close_add-picture');
+let formElementPlace = document.querySelector('.popup__form_place');
+let placeNameInput = document.querySelector('.popup__input_type_place-name');
+let placePictureInput = document.querySelector('.popup__input_type_place-picture');
+
 
 function openPopup() {
   popup.classList.add('popup_opened')
@@ -15,8 +22,16 @@ function openPopup() {
   jobInput.value = profileJob.textContent;
 }
 
+function openAddPicturePopup() {
+  popupAddPicture.classList.add('popup_opened')
+}
+
 function closePopup() {
   popup.classList.remove('popup_opened')
+}
+
+function closeAddPicturePopup() {
+  popupAddPicture.classList.remove('popup_opened')
 }
 // Обработчик «отправки» формы.
 function formSubmitHandler (evt) {
@@ -27,15 +42,22 @@ profileJob.textContent = jobInput.value;
 closePopup()
 }
 // Вставим новые значения с помощью textContent
+// Обработчик «отправки» формы.
+function formPlaceSubmitHandler (evt) {
+  evt.preventDefault();
+// Выберем элементы, куда должны быть вставлены значения полей
+profileName.textContent = nameInput.value;
+profileJob.textContent = jobInput.value;
+closePopup()
+}
+// Вставим новые значения с помощью textContent
 formElement.addEventListener('submit', formSubmitHandler);
-profileOpenPopupButton.addEventListener('click', openPopup)
-popupCloseButton.addEventListener('click', closePopup)
-//Закрытие попапа кликом на пустую область.
-//popup.addEventListener('click', function(event) {
-// if(event.target === event.currentTarget){
-//closePopup()
-//  }
-//})
+profileOpenPopupButton.addEventListener('click', openPopup);
+popupCloseButton.addEventListener('click', closePopup);
+profileOpenPopupAddButton.addEventListener('click', openAddPicturePopup);
+popupCloseButtonAddPicture.addEventListener('click', closeAddPicturePopup);
+
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -61,21 +83,11 @@ const initialCards = [
     name: 'Байкал',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
-]; 
+];
 
-const card = ({name, link}) => {
-  const placeCard = document.createElement("div");
-  placeCard.classList.add('place');
-  placeCard.insertAdjacentHTML(
-    'afterBegin',
-    `
     <div class="place">
       <img class="place__image" src=${link} alt=${name}>
       <h2 class="place__title">${name}</h2>
       <button class="place__like" type="button" aria-label="поставить лайк"></button>
       <button class="place__delete" type="button" aria-label="удалить"></button>
     </div>
- `
-  );
-  return placeCard;
-};
