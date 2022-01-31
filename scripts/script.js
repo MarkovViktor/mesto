@@ -97,10 +97,9 @@ function renderinitialCards(item) {
   newElement.querySelector('.place__button_delete').addEventListener('click', function (evt){
     evt.target.closest('.place').remove()
   });
-  newElement.querySelector('.place__button_like').addEventListener('click', function (evt){
-  evt.target.classList.toggle('.place__like_type_active')
+  newElement.querySelector('.place__like').addEventListener('click', function (evt){
+  evt.target.classList.toggle('place__like_type_active')
   });
-
   
   //newImage.addEventListener('click', openPicturePopup);
   places.appendChild(newElement);
