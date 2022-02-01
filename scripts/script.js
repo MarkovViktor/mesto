@@ -13,52 +13,12 @@ const popupCloseButtonAddPicture = document.querySelector('.popup__btn-close_add
 const formElementPlace = document.querySelector('.popup__form_place');
 const placeNameInput = document.querySelector('.popup__input_type_place-name');
 const placePictureInput = document.querySelector('.popup__input_type_place-picture');
-const placePictureLink = document.querySelector('.place__picture_link');
-const placePictureName = document.querySelector('.place__picture_name');
 const places = document.querySelector('.places');
 const template = document.querySelector('.element__template').content;
 const popupOpenPicture = document.querySelector('.popup__open-picture');
 const popupPictureImage = document.querySelector('.popup__picture');
 const popupPictureSubtitle = document.querySelector('.popup__subtitle-picture');
-
-function openPopup() {
-  popup.classList.add('popup_opened')
-}
-function openProfilePopup() {
-  openPopup(profileOpenPopupButton)
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-}
-function openAddPicturePopup() {
-  popupAddPicture.classList.add('popup_opened')
-}
-function closePopup() {
-  popup.classList.remove('popup_opened')
-}
-function closeAddPicturePopup() {
-  popupAddPicture.classList.remove('popup_opened')
-}
-function formSubmitHandler (evt) {
-    evt.preventDefault();
-profileName.textContent = nameInput.value;
-profileJob.textContent = jobInput.value;
-closePopup()
-}
-function openPicturePopup(evt){
-  openPopup(popupOpenPicture)
-  popupPictureImage.src = evt.target.src
-  popupPictureImage.alt = evt.target.alt
-  popupPictureSubtitle.textContent = evt.target.alt
- }
-
-formElement.addEventListener('submit', formSubmitHandler);
-profileOpenPopupButton.addEventListener('click', openProfilePopup);
-popupCloseButton.addEventListener('click', closePopup);
-formElementPlace.addEventListener('submit', createCard);
-profileOpenPopupAddButton.addEventListener('click', openAddPicturePopup);
-popupCloseButtonAddPicture.addEventListener('click', closeAddPicturePopup);
-
-
+const popupPictureButtonClose = document.querySelector('.popup__btn-close_open-picture');
 const initialCards = [
   {
     name: 'Архыз',
@@ -86,6 +46,47 @@ const initialCards = [
   }
 ];
 
+function openPopup() {
+  popup.classList.add('popup_opened')
+}
+function openProfilePopup() {
+  openPopup(profileOpenPopupButton)
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+}
+function openAddPicturePopup() {
+  popupAddPicture.classList.add('popup_opened')
+}
+function closePopup() {
+  popup.classList.remove('popup_opened')
+}
+function closeAddPicturePopup() {
+  popupAddPicture.classList.remove('popup_opened')
+}
+function formSubmitHandler (evt) {
+  evt.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+closePopup()
+}
+function openPicturePopup(evt){
+  popupOpenPicture.classList.add('popup_opened')
+  popupPictureImage.src = evt.target.src
+  popupPictureImage.alt = evt.target.alt
+  popupPictureSubtitle.textContent = evt.target.alt
+}
+function closePicturePopup() {
+  popupOpenPicture.classList.remove('popup_opened')
+}
+
+formElement.addEventListener('submit', formSubmitHandler);
+profileOpenPopupButton.addEventListener('click', openProfilePopup);
+popupCloseButton.addEventListener('click', closePopup);
+formElementPlace.addEventListener('submit', addCard);
+profileOpenPopupAddButton.addEventListener('click', openAddPicturePopup);
+popupCloseButtonAddPicture.addEventListener('click', closeAddPicturePopup);
+popupPictureButtonClose.addEventListener('click', closePicturePopup);
+
 function renderinitialCards(item) {
   const newElement = template.cloneNode(true);
   const newImage = newElement.querySelector('.place__picture_link')
@@ -101,15 +102,11 @@ function renderinitialCards(item) {
   newImage.addEventListener('click', openPicturePopup);
   return newElement
 }
-
-
 function renderPlace(item){
   const cardCreated = renderinitialCards(item)
   places.prepend(cardCreated)
 }
-
-
-function createCard (evt) {
+function addCard (evt) {
   evt.preventDefault();
   const cardInform = {};
   cardInform.name = placeNameInput.value;
