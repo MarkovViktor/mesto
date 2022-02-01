@@ -19,6 +19,61 @@ const popupOpenPicture = document.querySelector('.popup_type_open-picture');
 const popupPictureImage = document.querySelector('.popup__picture');
 const popupPictureSubtitle = document.querySelector('.popup__subtitle-picture');
 const popupPictureButtonClose = document.querySelector('.popup__btn-close_open-picture');
+
+function switchPopup() {
+  popup.classList.toggle('popup_opened')
+}
+function switchAddPicturePopup() {
+  popupAddPicture.classList.toggle('popup_opened')
+}
+function openProfilePopup() {
+  switchPopup(profileOpenPopupButton)
+}
+function openPicturePopup(){
+  popupOpenPicture.classList.add('popup_opened')
+}
+function closePicturePopup() {
+  popupOpenPicture.classList.remove('popup_opened')
+}
+function addFormInputProfile() {
+  openProfilePopup()
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+}
+function formSubmitHandler (evt) {
+  evt.preventDefault();
+  profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
+switchPopup()
+}
+function addInfoPicture(evt) {
+  popupPictureImage.src = evt.target.src
+  popupPictureImage.alt = evt.target.alt
+  popupPictureSubtitle.textContent = evt.target.alt
+  openPicturePopup()
+}
+function renderPlace(item){
+  const cardCreated = renderinitialCards(item)
+  places.prepend(cardCreated)
+}
+function addCard (evt) {
+  evt.preventDefault();
+  const cardInform = {};
+  cardInform.name = placeNameInput.value;
+  cardInform.link = placePictureInput.value;
+  renderPlace(cardInform)
+  formElementPlace.reset()
+  switchAddPicturePopup()
+}
+
+formElement.addEventListener('submit', formSubmitHandler);
+profileOpenPopupButton.addEventListener('click', addFormInputProfile);
+popupCloseButton.addEventListener('click', switchPopup);
+formElementPlace.addEventListener('submit', addCard);
+profileOpenPopupAddButton.addEventListener('click', switchAddPicturePopup);
+popupCloseButtonAddPicture.addEventListener('click', switchAddPicturePopup);
+popupPictureButtonClose.addEventListener('click', closePicturePopup);
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -46,47 +101,6 @@ const initialCards = [
   }
 ];
 
-function openPopup() {
-  popup.classList.add('popup_opened')
-}
-function openProfilePopup() {
-  openPopup(profileOpenPopupButton)
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-}
-function openAddPicturePopup() {
-  popupAddPicture.classList.add('popup_opened')
-}
-function closePopup() {
-  popup.classList.remove('popup_opened')
-}
-function closeAddPicturePopup() {
-  popupAddPicture.classList.remove('popup_opened')
-}
-function formSubmitHandler (evt) {
-  evt.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-closePopup()
-}
-function openPicturePopup(evt){
-  popupOpenPicture.classList.add('popup_opened')
-  popupPictureImage.src = evt.target.src
-  popupPictureImage.alt = evt.target.alt
-  popupPictureSubtitle.textContent = evt.target.alt
-}
-function closePicturePopup() {
-  popupOpenPicture.classList.remove('popup_opened')
-}
-
-formElement.addEventListener('submit', formSubmitHandler);
-profileOpenPopupButton.addEventListener('click', openProfilePopup);
-popupCloseButton.addEventListener('click', closePopup);
-formElementPlace.addEventListener('submit', addCard);
-profileOpenPopupAddButton.addEventListener('click', openAddPicturePopup);
-popupCloseButtonAddPicture.addEventListener('click', closeAddPicturePopup);
-popupPictureButtonClose.addEventListener('click', closePicturePopup);
-
 function renderinitialCards(item) {
   const newElement = template.cloneNode(true);
   const newImage = newElement.querySelector('.place__picture_link')
@@ -99,20 +113,7 @@ function renderinitialCards(item) {
   newElement.querySelector('.place__like').addEventListener('click', function (evt){
   evt.target.classList.toggle('place__like_type_active')
   });
-  newImage.addEventListener('click', openPicturePopup);
+  newImage.addEventListener('click', addInfoPicture);
   return newElement
 }
-function renderPlace(item){
-  const cardCreated = renderinitialCards(item)
-  places.prepend(cardCreated)
-}
-function addCard (evt) {
-  evt.preventDefault();
-  const cardInform = {};
-  cardInform.name = placeNameInput.value;
-  cardInform.link = placePictureInput.value;
-  renderPlace(cardInform)
-  closeAddPicturePopup()
-}
-
 initialCards.forEach(renderPlace)
