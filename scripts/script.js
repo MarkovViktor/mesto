@@ -23,6 +23,9 @@ const popupPictureSubtitle = document.querySelector('.popup__subtitle-picture');
 
 function openPopup() {
   popup.classList.add('popup_opened')
+}
+function openProfilePopup() {
+  openPopup(profileOpenPopupButton)
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
@@ -41,16 +44,15 @@ profileName.textContent = nameInput.value;
 profileJob.textContent = jobInput.value;
 closePopup()
 }
-
-//function openPicturePopup(evt){
-  //openPopup(popupOpenPicture)
-  //popupPictureImage.src = evt.target.src
-  //popupPictureImage.alt = evt.target.alt
-  //popupPictureSubtitle.textContent = evt.target.alt
-//}
+function openPicturePopup(evt){
+  openPopup(popupOpenPicture)
+  popupPictureImage.src = evt.target.src
+  popupPictureImage.alt = evt.target.alt
+  popupPictureSubtitle.textContent = evt.target.alt
+ }
 
 formElement.addEventListener('submit', formSubmitHandler);
-profileOpenPopupButton.addEventListener('click', openPopup);
+profileOpenPopupButton.addEventListener('click', openProfilePopup);
 popupCloseButton.addEventListener('click', closePopup);
 formElementPlace.addEventListener('submit', createCard);
 profileOpenPopupAddButton.addEventListener('click', openAddPicturePopup);
@@ -84,10 +86,6 @@ const initialCards = [
   }
 ];
 
-function render() {
-  initialCards.forEach(renderinitialCards);
-}
-
 function renderinitialCards(item) {
   const newElement = template.cloneNode(true);
   const newImage = newElement.querySelector('.place__picture_link')
@@ -100,13 +98,15 @@ function renderinitialCards(item) {
   newElement.querySelector('.place__like').addEventListener('click', function (evt){
   evt.target.classList.toggle('place__like_type_active')
   });
-  
-  //newImage.addEventListener('click', openPicturePopup);
-  places.appendChild(newElement);
+  newImage.addEventListener('click', openPicturePopup);
   return newElement
 }
-render()
 
+
+function renderPlace(item){
+  const cardCreated = renderinitialCards(item)
+  places.prepend(cardCreated)
+}
 
 
 function createCard (evt) {
@@ -114,6 +114,8 @@ function createCard (evt) {
   const cardInform = {};
   cardInform.name = placeNameInput.value;
   cardInform.link = placePictureInput.value;
-  render(cardInform)
+  renderPlace(cardInform)
   closeAddPicturePopup()
 }
+
+initialCards.forEach(renderPlace)
