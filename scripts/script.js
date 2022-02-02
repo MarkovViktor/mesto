@@ -20,23 +20,27 @@ const popupPictureImage = document.querySelector('.popup__picture');
 const popupPictureSubtitle = document.querySelector('.popup__subtitle-picture');
 const popupPictureButtonClose = document.querySelector('.popup__btn-close_open-picture');
 
-function switchPopup() {
-  popup.classList.toggle('popup_opened')
+function openPopup(popup) {
+  popup.classList.add('popup_opened')
 }
-function switchAddPicturePopup() {
-  popupAddPicture.classList.toggle('popup_opened')
+function closePopup(popup) {
+  popup.classList.remove('popup_opened')
 }
-function openProfilePopup() {
-  switchPopup(profileOpenPopupButton)
-}
-function openPicturePopup(){
-  popupOpenPicture.classList.add('popup_opened')
-}
-function closePicturePopup() {
-  popupOpenPicture.classList.remove('popup_opened')
-}
+
+popupCloseButton.addEventListener('click', () => {
+  closePopup(popup);
+})
+profileOpenPopupAddButton.addEventListener('click', () => {
+  openPopup(popupAddPicture);
+})
+popupCloseButtonAddPicture.addEventListener('click', () => {
+  closePopup(popupAddPicture);
+})
+popupPictureButtonClose.addEventListener('click', () => {
+  closePopup(popupOpenPicture);
+})
 function addFormInputProfile() {
-  openProfilePopup()
+  openPopup(popup)
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
@@ -44,13 +48,13 @@ function formSubmitHandler (evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-switchPopup()
+  closePopup(popup)
 }
 function addInfoPicture(evt) {
   popupPictureImage.src = evt.target.src
   popupPictureImage.alt = evt.target.alt
   popupPictureSubtitle.textContent = evt.target.alt
-  openPicturePopup()
+  openPopup(popupOpenPicture)
 }
 function renderPlace(item){
   const cardCreated = renderinitialCards(item)
@@ -63,16 +67,12 @@ function addCard (evt) {
   cardInform.link = placePictureInput.value;
   renderPlace(cardInform)
   formElementPlace.reset()
-  switchAddPicturePopup()
+  closePopup(popupAddPicture)
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
 profileOpenPopupButton.addEventListener('click', addFormInputProfile);
-popupCloseButton.addEventListener('click', switchPopup);
 formElementPlace.addEventListener('submit', addCard);
-profileOpenPopupAddButton.addEventListener('click', switchAddPicturePopup);
-popupCloseButtonAddPicture.addEventListener('click', switchAddPicturePopup);
-popupPictureButtonClose.addEventListener('click', closePicturePopup);
 
 const initialCards = [
   {
