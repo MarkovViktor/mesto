@@ -26,7 +26,6 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
 }
-
 popupCloseButton.addEventListener('click', () => {
   closePopup(popup);
 })
@@ -39,6 +38,23 @@ popupCloseButtonAddPicture.addEventListener('click', () => {
 popupPictureButtonClose.addEventListener('click', () => {
   closePopup(popupOpenPicture);
 })
+
+popup.addEventListener('click', function(event) {
+ if(event.target === event.currentTarget){
+closePopup(popup);
+  }
+})
+popupOpenPicture.addEventListener('click', function(event) {
+  if(event.target === event.currentTarget){
+ closePopup(popupOpenPicture);
+   }
+ })
+popupAddPicture.addEventListener('click', function(event) {
+  if(event.target === event.currentTarget){
+ closePopup(popupAddPicture);
+   }
+ })
+
 function addFormInputProfile() {
   openPopup(popup)
   nameInput.value = profileName.textContent;
