@@ -22,9 +22,13 @@ const popupPictureButtonClose = document.querySelector('.popup__btn-close_open-p
 
 function openPopup(popup) {
   popup.classList.add('popup_opened')
+  popup.addEventListener('click', closePopupClickOverlay)
+  document.addEventListener('keydown', closePopupPushEsc)
 }
 function closePopup(popup) {
   popup.classList.remove('popup_opened')
+  popup.removeEventListener('click', closePopupClickOverlay)
+  document.removeEventListener('keydown', closePopupPushEsc)
 }
 popupCloseButton.addEventListener('click', () => {
   closePopup(popup);
@@ -38,22 +42,17 @@ popupCloseButtonAddPicture.addEventListener('click', () => {
 popupPictureButtonClose.addEventListener('click', () => {
   closePopup(popupOpenPicture);
 })
-
-popup.addEventListener('click', function(event) {
- if(event.target === event.currentTarget){
-closePopup(popup);
+const closePopupClickOverlay = (event) => {
+  if(event.target === event.currentTarget){
+    closePopup(event.target);
   }
-})
-popupOpenPicture.addEventListener('click', function(event) {
-  if(event.target === event.currentTarget){
- closePopup(popupOpenPicture);
-   }
- })
-popupAddPicture.addEventListener('click', function(event) {
-  if(event.target === event.currentTarget){
- closePopup(popupAddPicture);
-   }
- })
+}
+const closePopupPushEsc = (event) => {
+  if(event.key === 'Escape'){
+    const popup = document.querySelector('.popup_opened');
+    closePopup(popup);
+  }
+}
 
 function addFormInputProfile() {
   openPopup(popup)

@@ -35,17 +35,23 @@
         </form>
       </div>
     </div>
+
+
+
     <div class="popup popup_type_add-picture">
       <div class="popup__container">
         <h3 class="popup__title">Новое место</h3>  
         <button class="popup__btn-close popup__btn-close_add-picture" type="button" aria-label="Закрыть"></button>
-        <form class="popup__form popup__form_place" name="place" method="get">
+        <form class="popup__form popup__form_place" name="place" method="get" novalidate>
           <input class="popup__input popup__input_type_place-name" type="text" name="place-name" placeholder="Название" required>
           <input class="popup__input popup__input_type_place-picture" required type="url" name="place-picture" placeholder="Ссылка на картинку">
           <button class="popup__btn-save popup__btn-save_add-picture" type="submit" aria-label="Создать">Создать</button>
         </form>
       </div>
     </div>
+
+
+
     <div class="popup popup_type_open-picture">
       <div class="popup__picture-container">
         <button class="popup__btn-close popup__btn-close_open-picture" aria-label="Закрыть" type="button" ></button>
