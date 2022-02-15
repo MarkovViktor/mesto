@@ -24,34 +24,37 @@
     <footer class="footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>  
     </footer>
+
+
     <div class="popup popup_type_edit-profile">
       <div class="popup__container">
         <h3 class="popup__title">Редактировать профиль</h3>  
         <button class="popup__btn-close" type="button" aria-label="Закрыть"></button>
-        <form class="popup__form" name="profile" method="get">
-          <input class="popup__input popup__input_type_user-name" type="text" name="user-name" placeholder="Ваше имя" required>
-          <input class="popup__input popup__input_type_user-job" type="text" name="user-job" placeholder="Ваше занятие">
+        <form class="popup__form" name="profile" method="get" novalidate>
+          <input id="name" class="popup__input popup__input_type_user-name" type="text" name="user-name" placeholder="Ваше имя" required minlength="2"
+          maxlength="40">
+          <span id="error-name" class="popup__input-error"></span>
+          <input id="job" class="popup__input popup__input_type_user-job" type="text" name="user-job" placeholder="Ваше занятие" required minlength="2"
+          maxlength="200">
+          <span id="error-job" class="popup__input-error"></span>
           <button class="popup__btn-save" type="submit" aria-label="Сохранить">Сохранить</button>
         </form>
       </div>
     </div>
-
-
-
     <div class="popup popup_type_add-picture">
       <div class="popup__container">
         <h3 class="popup__title">Новое место</h3>  
         <button class="popup__btn-close popup__btn-close_add-picture" type="button" aria-label="Закрыть"></button>
         <form class="popup__form popup__form_place" name="place" method="get" novalidate>
-          <input class="popup__input popup__input_type_place-name" type="text" name="place-name" placeholder="Название" required>
-          <input class="popup__input popup__input_type_place-picture" required type="url" name="place-picture" placeholder="Ссылка на картинку">
+          <input id="img" class="popup__input popup__input_type_place-name" type="text" name="place-name" placeholder="Название" required minlength="2"
+          maxlength="30">
+          <span id="error-img" class="popup__input-error"></span>
+          <input id="url" class="popup__input popup__input_type_place-picture" required type="url" name="place-picture" placeholder="Ссылка на картинку">
+          <span id="error-url" class="popup__input-error"></span>
           <button class="popup__btn-save popup__btn-save_add-picture" type="submit" aria-label="Создать">Создать</button>
         </form>
       </div>
     </div>
-
-
-
     <div class="popup popup_type_open-picture">
       <div class="popup__picture-container">
         <button class="popup__btn-close popup__btn-close_open-picture" aria-label="Закрыть" type="button" ></button>
@@ -69,6 +72,7 @@
   </template>  
   </div> 
   <script src="./scripts/script.js"></script>
+  <script src="./scripts/validate.js"></script>
 </body>
 </html>
 

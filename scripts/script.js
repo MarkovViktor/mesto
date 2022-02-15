@@ -19,7 +19,7 @@ const popupOpenPicture = document.querySelector('.popup_type_open-picture');
 const popupPictureImage = document.querySelector('.popup__picture');
 const popupPictureSubtitle = document.querySelector('.popup__subtitle-picture');
 const popupPictureButtonClose = document.querySelector('.popup__btn-close_open-picture');
-
+const popupButtonSaveAddPicture = document.querySelector('.popup__btn-save_add-picture');
 function openPopup(popup) {
   popup.classList.add('popup_opened')
   popup.addEventListener('click', closePopupClickOverlay)
@@ -49,11 +49,15 @@ const closePopupClickOverlay = (event) => {
 }
 const closePopupPushEsc = (event) => {
   if(event.key === 'Escape'){
-    const popup = document.querySelector('.popup_opened');
-    closePopup(popup);
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
   }
 }
 
+function disabledButtonAfterCreated() {
+  popupButtonSaveAddPicture.setAttribute('disabled', '');
+  popupButtonSaveAddPicture.classList.add('popup__btn-save_disabled');
+}
 function addFormInputProfile() {
   openPopup(popup)
   nameInput.value = profileName.textContent;
@@ -83,6 +87,7 @@ function addCard (evt) {
   renderPlace(cardInform)
   formElementPlace.reset()
   closePopup(popupAddPicture)
+  disabledButtonAfterCreated()
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
