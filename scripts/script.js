@@ -1,3 +1,5 @@
+import { FormValidator } from './FormValidator.js'
+
 const profileOpenPopupButton = document.querySelector('.profile__edit-button');
 const popupCloseButton = document.querySelector('.popup__btn-close');
 const popupEditProfile = document.querySelector('.popup');
@@ -19,6 +21,22 @@ const popupPictureImage = document.querySelector('.popup__picture');
 const popupPictureSubtitle = document.querySelector('.popup__subtitle-picture');
 const popupPictureButtonClose = document.querySelector('.popup__btn-close_open-picture');
 const popupButtonSaveAddPicture = document.querySelector('.popup__btn-save_add-picture');
+
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__btn-save',
+  inactiveButtonClass: 'popup__btn-save_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible',
+}
+
+const editProfileValidator = new FormValidator(validationConfig, formElement)
+const addCardValidator = new FormValidator(validationConfig, formElementPlace)
+
+editProfileValidator.enableValidation()
+addCardValidator.enableValidation()
+
 function openPopup(popup) {
   popup.classList.add('popup_opened')
   popup.addEventListener('click', closePopupClickOverlay)
