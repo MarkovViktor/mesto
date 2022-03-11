@@ -3,4 +3,6 @@
   line-height: 15px;
   font-size: 12px;
   transition: .3s;
+  display: block;
+  min-height: 30px;
 }

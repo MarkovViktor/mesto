@@ -60,9 +60,9 @@ function disabledButtonAfterCreated() {
   popupButtonSaveAddPicture.classList.add('popup__btn-save_disabled');
 }
 function addFormInputProfile() {
-  openPopup(popupEditProfile)
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  openPopup(popupEditProfile)
 }
 function formSubmitHandler (evt) {
   evt.preventDefault();
