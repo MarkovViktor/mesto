@@ -1,4 +1,6 @@
 import { FormValidator } from './FormValidator.js'
+import {openPopup, closePopup, popupOpenPicture, popupPictureImage, popupPictureSubtitle} from './utils.js'
+import { Card } from './Card.js'
 
 const profileOpenPopupButton = document.querySelector('.profile__edit-button');
 const popupCloseButton = document.querySelector('.popup__btn-close');
@@ -15,10 +17,6 @@ const formElementPlace = document.querySelector('.popup__form_place');
 const placeNameInput = document.querySelector('.popup__input_type_place-name');
 const placePictureInput = document.querySelector('.popup__input_type_place-picture');
 const places = document.querySelector('.places');
-const template = document.querySelector('.element__template').content;
-const popupOpenPicture = document.querySelector('.popup_type_open-picture');
-const popupPictureImage = document.querySelector('.popup__picture');
-const popupPictureSubtitle = document.querySelector('.popup__subtitle-picture');
 const popupPictureButtonClose = document.querySelector('.popup__btn-close_open-picture');
 const popupButtonSaveAddPicture = document.querySelector('.popup__btn-save_add-picture');
 
@@ -37,16 +35,6 @@ const addCardValidator = new FormValidator(validationConfig, formElementPlace)
 editProfileValidator.enableValidation()
 addCardValidator.enableValidation()
 
-function openPopup(popup) {
-  popup.classList.add('popup_opened')
-  popup.addEventListener('click', closePopupClickOverlay)
-  document.addEventListener('keydown', closePopupPushEsc)
-}
-function closePopup(popup) {
-  popup.classList.remove('popup_opened')
-  popup.removeEventListener('click', closePopupClickOverlay)
-  document.removeEventListener('keydown', closePopupPushEsc)
-}
 popupCloseButton.addEventListener('click', () => {
   closePopup(popupEditProfile);
 })
@@ -59,16 +47,12 @@ popupCloseButtonAddPicture.addEventListener('click', () => {
 popupPictureButtonClose.addEventListener('click', () => {
   closePopup(popupOpenPicture);
 })
-const closePopupClickOverlay = (event) => {
-  if(event.target === event.currentTarget){
-    closePopup(event.target);
-  }
-}
-const closePopupPushEsc = (event) => {
-  if(event.key === 'Escape'){
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
+
+function handleCardClick(name, link) {
+  popupPictureImage.src = link
+  popupPictureImage.alt = name
+  popupPictureSubtitle.textContent = name
+  openPopup(popupOpenPicture)
 }
 
 function disabledButtonAfterCreated() {
@@ -86,16 +70,18 @@ function formSubmitHandler (evt) {
   profileJob.textContent = jobInput.value;
   closePopup(popupEditProfile)
 }
-function addInfoPicture(evt) {
-  popupPictureImage.src = evt.target.src
-  popupPictureImage.alt = evt.target.alt
-  popupPictureSubtitle.textContent = evt.target.alt
-  openPopup(popupOpenPicture)
-}
+
 function renderPlace(item){
-  const cardCreated = renderinitialCards(item)
-  places.prepend(cardCreated)
+  const card = createNewCard(item)
+  places.prepend(card)
 }
+
+function createNewCard(item) {
+  const cardElement = new Card(item, '.element__template', handleCardClick)
+  const card = cardElement.renderinitialCards()
+  return card
+}
+
 function addCard (evt) {
   evt.preventDefault();
   const cardInform = {};
@@ -138,19 +124,4 @@ const initialCards = [
   }
 ];
 
-function renderinitialCards(item) {
-  const newElement = template.cloneNode(true);
-  const newImage = newElement.querySelector('.place__picture_link')
-  newElement.querySelector('.place__picture_name').textContent = item.name;
-  newImage.src = item.link;
-  newImage.alt = item.name;
-  newElement.querySelector('.place__button_delete').addEventListener('click', function (evt){
-    evt.target.closest('.place').remove()
-  });
-  newElement.querySelector('.place__like').addEventListener('click', function (evt){
-  evt.target.classList.toggle('place__like_type_active')
-  });
-  newImage.addEventListener('click', addInfoPicture);
-  return newElement
-}
 initialCards.forEach(renderPlace)
