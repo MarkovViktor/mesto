@@ -1,11 +1,11 @@
 
-import { FormValidator } from './FormValidator.js'
-import { Card } from './Card.js';
-import { validationConfig } from './constants.js';
-import { UserInfo } from './UserInfo.js';
-import { Section } from './Section.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { PopupWithImage } from './PopupWithImage.js';
+import { FormValidator } from '../components/FormValidator.js'
+import { Card } from '../components/Card.js';
+import { validationConfig } from '../components/constants.js';
+import { UserInfo } from '../components/UserInfo.js';
+import { Section } from '../components/Section.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
 import { 
   initialCards,
   profileOpenPopupButton,
@@ -15,7 +15,7 @@ import {
   profileOpenPopupAddButton,
   formElementPlace,
   places
-} from './constants.js';
+} from '../components/constants.js';
 import '../pages/index.css'
 
 const popupModal = new PopupWithImage('.popup_type_open-picture');
@@ -54,8 +54,6 @@ popupAddNewCard.setEventListeners();
 //Open popup with form for added places
 profileOpenPopupAddButton.addEventListener('click', function () {
   addCardValidator.resetErrors();
-  formElement.reset();
-  addCardValidator.disabledSubmitButton();
   popupAddNewCard.open();
 });
 
@@ -68,7 +66,7 @@ addCardValidator.enableValidation()
 
 function renderPlace(item) {
   const card = createNewCard(item)
-  places.prepend(card)
+  section.addItem(card)
 }
 
 function createNewCard(item) {
