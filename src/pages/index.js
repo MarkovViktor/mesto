@@ -17,6 +17,33 @@ import {
   places
 } from '../components/constants.js';
 import '../pages/index.css'
+import { api } from '../components/Api.js';
+let userId
+
+api.getProfile()
+  .then(res => {
+    console.log('ansver', res)
+    userInfo.setUserInfo(res.name, res.about)
+    userId = res._id
+  })
+
+  api.getInitialCards()
+  .then(cardList => {
+    console.log(cardList)
+    cardList.forEach(item => {
+      const card = createNewCard({
+        name: item.name,
+        link: item.link,
+        likes: item.likes,
+        id: item._id,
+        userId: userId,
+        ownerId: item.owner._id
+      })
+      section.addItem(card)
+    })
+  })
+
+
 
 const popupModal = new PopupWithImage('.popup_type_open-picture');
 popupModal.setEventListeners()
@@ -25,8 +52,11 @@ const userInfo = new UserInfo({ nameSelector: '.profile__user-name', jobSelector
 //Editing profile
 const submitEditProfile = (item) => {
   const { username, userjob } = item
-  userInfo.setUserInfo(username, userjob);
-  popupEditProfile.close();
+  api.editProfile(username, userjob)
+    .then(() => {
+      userInfo.setUserInfo(username, userjob)
+      popupEditProfile.close();
+    })
 }
 
 //Open profile
@@ -40,9 +70,19 @@ profileOpenPopupButton.addEventListener('click', () => {
 });
 
 const submitAddNewCard = (item) => {
-  const card = createNewCard({ name: item.name, link: item.picture})
+  api.addCard(item.name, item.picture)
+    .then(res => {
+      const card = createNewCard({ 
+        name: res.name,
+        link: res.link,
+        likes: res.likes,
+        id: res._id,
+        userId: userId,
+        ownerId: res.owner._id
+      })
   section.addItem(card);
   popupAddNewCard.close();
+  })
 }
 
 const popupEditProfile = new PopupWithForm('.popup', submitEditProfile);
@@ -50,6 +90,9 @@ popupEditProfile.setEventListeners();
 
 const popupAddNewCard = new PopupWithForm('.popup_type_add-picture', submitAddNewCard);
 popupAddNewCard.setEventListeners();
+
+const confirmPopup = new PopupWithForm('.popup_type_delete-picture');
+confirmPopup.setEventListeners()
 
 //Open popup with form for added places
 profileOpenPopupAddButton.addEventListener('click', function () {
@@ -70,12 +113,42 @@ function renderPlace(item) {
 }
 
 function createNewCard(item) {
-  const cardElement = new Card(item, '.element__template', () => {
+  const cardElement = new Card(
+    item, 
+    '.element__template', 
+    () => {
     popupModal.open(item.name, item.link)
-  })
+  }, 
+  (id) => {
+     console.log('id', id)
+    confirmPopup.open()
+    confirmPopup.changeSubmitHandler(() => {
+      api.deleteCard(id)
+        .then(res => {
+         cardElement.deleteCard()
+         confirmPopup.close()
+         console.log(res) 
+        })
+    })
+  },
+  (id) => {
+    if(cardElement.isLiked()) {
+      api.deleteLike(id)
+      .then(res => {
+        cardElement.setLikes(res.likes)
+      })
+    } else {
+      api.addLike(id)
+      .then(res => {
+        cardElement.setLikes(res.likes)
+      })
+    }
+  }, 
+  )
   const cardCreated = cardElement.renderinitialCards()
   return cardCreated
 }
 
-const section = new Section({ items: initialCards, renderer: renderPlace }, '.places')
+
+const section = new Section({ items: [], renderer: renderPlace }, '.places')
 section.renderPlace();

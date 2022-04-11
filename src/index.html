@@ -13,8 +13,8 @@
     <main class="content">
       <section class="profile">
         <img class="profile__avatar" src='<%=require("./images/image.jpg")%>' alt="Аватар">
-        <h1 class="profile__user-name">Жак-Ив Кусто</h1>
-        <p class="profile__user-job">Исследователь океана</p>
+        <h1 class="profile__user-name"></h1>
+        <p class="profile__user-job"></p>
         <button class="profile__edit-button" type="button" aria-label="изменить профиль"></button>
         <button class="profile__add-button" type="button" aria-label="добавить место"></button>
       </section>
@@ -54,6 +54,20 @@
         </form>
       </div>
     </div>
+
+
+
+    <div class="popup popup_type_delete-picture">
+      <div class="popup__container">
+        <h3 class="popup__title">Вы уверены?</h3>  
+        <button class="popup__btn-close popup__btn-close_add-picture" type="button" aria-label="Закрыть"></button>
+        <form class="popup__form popup__form_place" name="place" method="get" novalidate>
+          <button class="popup__btn-save popup__btn-save_add-picture" type="submit" aria-label="Создать">Да</button>
+        </form>
+      </div>
+    </div>
+
+    
     <div class="popup popup_type_open-picture">
       <div class="popup__picture-container">
         <button class="popup__btn-close popup__btn-close_open-picture" aria-label="Закрыть" type="button" ></button>
@@ -66,6 +80,7 @@
       <img class="place__image place__picture_link" src="&{link}" alt="">
       <h2 class="place__title place__picture_name"></h2>
       <button class="place__like place__button_like" type="button" aria-label="поставить лайк"></button>
+      <span class="place__like-count"></span>
       <button class="place__delete place__button_delete" type="button" aria-label="удалить"></button>
     </div>
   </template>  
