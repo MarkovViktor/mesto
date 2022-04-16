@@ -3,7 +3,7 @@
   border-radius: 50%;
   width: 120px;
   height: 120px;
-  grid-area: ava;
+  object-fit: cover;
 }
 
 @media screen and (max-width: 889px) {
