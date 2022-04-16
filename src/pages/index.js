@@ -1,7 +1,7 @@
 
 import { FormValidator } from '../components/FormValidator.js'
 import { Card } from '../components/Card.js';
-import { validationConfig } from '../components/constants.js';
+import { validationConfig } from '../utils/constants.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Section } from '../components/Section.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
@@ -10,13 +10,13 @@ import { api } from '../components/Api.js';
 import { 
   editAvatarForm,
   profileOpenPopupButton,
-  formElement,
+  profileForm,
   nameInput,
   jobInput,
   profileOpenPopupAddButton,
   formElementPlace,
   openProfileAvatarButton
-} from '../components/constants.js';
+} from '../utils/constants.js';
 import '../pages/index.css'
 
 let userId
@@ -111,7 +111,6 @@ popupAvatar.setEventListeners()
 //Open popup with form for added avatar
 openProfileAvatarButton.addEventListener('click', function () {
   popupAvatarValidator.resetErrors();
-  popupAvatarValidator.disabledSubmitButton();
   popupAvatar.open();
 });
 
@@ -121,7 +120,7 @@ profileOpenPopupAddButton.addEventListener('click', function () {
   popupAddNewCard.open();
 });
 
-const editProfileValidator = new FormValidator(validationConfig, formElement)
+const editProfileValidator = new FormValidator(validationConfig, profileForm)
 const addCardValidator = new FormValidator(validationConfig, formElementPlace)
 const popupAvatarValidator = new FormValidator(validationConfig, editAvatarForm)
 
@@ -162,15 +161,21 @@ const createNewCard = (item) => {
       .then(res => {
         cardElement.setLikes(res.likes)
       })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`)
+      })
     } else {
       api.addLike(id)
       .then(res => {
         cardElement.setLikes(res.likes)
       })
+      .catch((err) => {
+        console.log(`Ошибка: ${err}`)
+      })
     }
   }, 
   )
-  const cardCreated = cardElement.renderinitialCards()
+  const cardCreated = cardElement.generateCard()
   return cardCreated
 }
 

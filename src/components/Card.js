@@ -45,8 +45,7 @@ export class Card {
 
   setLikes(newLikes) {
     this._likes = newLikes
-    const likeCountElement = this._template.querySelector('.place__like-count')
-    likeCountElement.textContent = this._likes.length
+    this._likeCountElement.textContent = this._likes.length
 
     if(this.isLiked()) {
       this._putLike()
@@ -55,7 +54,8 @@ export class Card {
     }
   }
 
-  renderinitialCards = () => {
+  generateCard = () => {
+    this._likeCountElement = this._template.querySelector('.place__like-count')
     this._likeButton = this._template.querySelector('.place__button_like')
     this._newImage = this._template.querySelector('.place__picture_link')
     this._template.querySelector('.place__picture_name').textContent = this._name;
